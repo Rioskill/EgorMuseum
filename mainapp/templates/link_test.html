@@ -3,9 +3,6 @@
 {% block main %}
     <div id="links-buttons"></div>
 
-    <br>
-{#    <button id = "changeBtn" class="btn btn-primary top-right">изменить</button>#}
-
     <script>
         {% include 'common.js' %}
         var buttonIsActive = [];
@@ -43,9 +40,9 @@
 
         let myDiv = document.getElementById("links-buttons");
 
-        createLink(myDiv, 1, "нож", "https://ru.wikipedia.org/wiki/%D0%9D%D0%BE%D0%B6");
-        createLink(myDiv, 2, "сковорода", "https://ru.wikipedia.org/wiki/%D0%A1%D0%BA%D0%BE%D0%B2%D0%BE%D1%80%D0%BE%D0%B4%D0%B0");
-        createLink(myDiv, 3, "стул", "https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D1%83%D0%BB");
+        {% for word in words %}
+            createLink(myDiv, {{ word.id }}, "{{ word.word }}", "{{ word.href }}");
+        {% endfor %}
 
         let buttons = myDiv.getElementsByTagName("button");
         let refs = myDiv.getElementsByTagName("a");

@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
+class WordLinks(models.Model):
+    word = models.CharField(max_length=50)
+    href = models.CharField(max_length=150)
