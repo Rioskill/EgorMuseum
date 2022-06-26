@@ -4,10 +4,10 @@
     <div id="links-buttons"></div>
 
     <br>
-    <button id = "changeBtn" class="btn btn-primary top-right">изменить</button>
+{#    <button id = "changeBtn" class="btn btn-primary top-right">изменить</button>#}
 
     <script>
-        var inEditMode = false;
+        {% include 'common.js' %}
         var buttonIsActive = [];
 
         function createLink (div, id, text, href) {
@@ -41,16 +41,6 @@
             div.appendChild(space);
         }
 
-        function hide (element) {
-            let classList = element.classList;
-            if (!classList.contains("hidden"))
-                classList.add("hidden");
-        }
-
-        function show (element) {
-            element.classList.remove("hidden");
-        }
-
         let myDiv = document.getElementById("links-buttons");
 
         createLink(myDiv, 1, "нож", "https://ru.wikipedia.org/wiki/%D0%9D%D0%BE%D0%B6");
@@ -79,27 +69,24 @@
             hide(buttons[i])
         }
 
-        let changeButton = document.getElementById("changeBtn");
-
-        changeButton.onclick = function() {
-            if (!inEditMode) {
-                for(let i = 0; i < buttons.length; i++) {
-                    hide(refs[i]);
-                    hide(spans[i]);
-                    show(buttons[i]);
-                }
-            } else {
-                for(let i = 0; i < buttons.length; i++) {
-                    hide(buttons[i]);
-
-                    if (buttonIsActive[i])
-                        show(refs[i]);
-                    else
-                        show(spans[i]);
-                }
+        onEditModeEnter = function () {
+            for(let i = 0; i < buttons.length; i++) {
+                hide(refs[i]);
+                hide(spans[i]);
+                show(buttons[i]);
             }
-            inEditMode = !inEditMode;
-        };
+        }
+
+        onEditModeExit = function () {
+            for(let i = 0; i < buttons.length; i++) {
+                hide(buttons[i]);
+
+                if (buttonIsActive[i])
+                    show(refs[i]);
+                else
+                    show(spans[i]);
+            }
+        }
     </script>
 
     <style>

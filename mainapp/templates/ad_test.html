@@ -9,22 +9,28 @@
     </div>
 
     <script>
+        {% include 'common.js' %}
+
         let btn = document.getElementById("close-btn");
         btn.onclick = function() {
             let parent = this.parentNode;
             parent.parentNode.removeChild(parent);
+        }
+
+        hide(btn);
+
+        onEditModeEnter = function() {
+            show(btn);
+        }
+
+        onEditModeExit = function() {
+            hide(btn);
         }
     </script>
 
     <style>
         .hidden {
             display: none;
-        }
-
-        .top-right {
-            position: fixed;
-            top: 0px;
-            right : 0px;
         }
 
         .ad-parent {
