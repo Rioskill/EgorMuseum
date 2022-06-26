@@ -14,4 +14,14 @@ def ad_view (request):
 
 
 def vandalism_view (request):
-    return render(request, 'image_test.html', {})
+    comments = [
+        {'author': 'Рандомный чел', 'text': 'Понятия не имею, кто это'},
+        {'author': 'Жира', 'text': 'Я хачу пиццы'},
+        {'author': 'Егор', 'text': 'Просто солнышко'},
+    ]
+
+    context = {
+        'comments': comments
+    }
+
+    return render(request, 'image_test.html', context)

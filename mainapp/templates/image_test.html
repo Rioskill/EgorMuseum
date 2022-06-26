@@ -2,9 +2,26 @@
 
 {% block main %}
 
-    <div class="parent">
-        <img src="../static/ivan.jpg" width="300" height="400" class="jpeg-main"/>
-        <input type="image" src="../static/ivan_overlay.png" id = "vandalism" width="300" height="400" class="png-over"/>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="parent">
+                <img src="../static/ivan.jpg" width="300" height="400" class="jpeg-main"/>
+                <input type="image" src="../static/ivan_overlay.png" id = "vandalism" width="300" height="400" class="png-over"/>
+            </div>
+        </div>
+        <div class="col-md-8 text-box">
+            <span>
+                Сюда можно(нужно) запихнуть что-нибудь смешное. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </span>
+        </div>
+    </div>
+
+    <h4 class="card-title mt-4">Комментарии</h4>
+
+    {#    комментарий    #}
+    {% include 'comments.html' %}
+
     </div>
 
     <script>
@@ -16,9 +33,24 @@
                 this.parentNode.removeChild(this);
         }
 
+        onEditModeEnter = function() {
+            showDeleteButtons();
+        }
+
+        onEditModeExit = function() {
+            hideDeleteButtons();
+        }
+
+        hideDeleteButtons();
+
     </script>
 
     <style>
+
+        .text-box {
+            background-color: #e2e8f0;
+            border: 1px solid beige;
+        }
         .hidden {
             display: none;
         }
@@ -45,6 +77,10 @@
             position: absolute;
             top: 0px;
             left: 0px;
+        }
+
+        .close {
+
         }
 
     </style>

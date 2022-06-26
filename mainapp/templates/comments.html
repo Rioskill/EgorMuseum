@@ -1,0 +1,48 @@
+<div id="comment-container">
+    {% for comment in comments %}
+        <div name="comment" class="row container-md mt-2">
+            <div class="d-flex flex-row comment-row m-t-0">
+                <div class="p-2"><img src="https://i.imgur.com/Ur43esv.jpg" alt="user" width="50" class="rounded-circle"></div>
+                <div class="comment-text w-100">
+                    <h6 class="font-medium">{{ comment.author }}</h6> <span class="m-b-15 d-block">{{ comment.text }}</span>
+                    <div class="comment-footer">
+                        <span class="text-muted float-right">April 14, 2019</span>
+                </div>
+                <button name="close-btn" class="btn-danger btn-sm">Удалить</button>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    let comments = document.getElementsByName('comment');
+    let commentContainer = document.getElementById('comment-container');
+
+    let deleteButtons = []
+
+    for(let i = 0; i < comments.length; i++) {
+        let comment = comments[i];
+        // crappy way to do it, but it works
+        let deleteButton = comment.childNodes[1].childNodes[3].childNodes[7];
+        deleteButton.onclick = function() {
+            commentContainer.removeChild(comment);
+            console.log(comments)
+        }
+        deleteButtons.push(deleteButton);
+    }
+
+    function showDeleteButtons() {
+        for(let i = 0; i < deleteButtons.length; i++) {
+            show(deleteButtons[i]);
+        }
+    }
+
+    function hideDeleteButtons() {
+        for(let i = 0; i < deleteButtons.length; i++) {
+            hide(deleteButtons[i]);
+        }
+    }
+
+</script>
