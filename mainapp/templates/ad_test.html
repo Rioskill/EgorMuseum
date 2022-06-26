@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="ad-parent">
+        <img class="jpeg-main" src="../static/alexey.jpg"/>
+        <a href="" class="under">Горячие парни в твоём районе...</a>
+
+        <button id="close-btn" class="close">
+    </div>
+
+    <script>
+        let btn = document.getElementById("close-btn");
+        btn.onclick = function() {
+            let parent = this.parentNode;
+            parent.parentNode.removeChild(parent);
+        }
+    </script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .top-right {
+            position: fixed;
+            top: 0px;
+            right : 0px;
+        }
+
+        .ad-parent {
+            position: relative;
+            top: 0px;
+            left: 0px;
+
+            width: 240px;
+            height: 320px;
+
+            border: 1px solid black;
+        }
+
+        .jpeg-main {
+            position: relative;
+            top: calc(20% - 1.5em);
+            left: 10%;
+
+            width: 80%;
+            height: 70%;
+        }
+
+        .under {
+            position: absolute;
+            bottom: 1%;
+            left: 0px;
+
+            text-align: center;
+        }
+        
+        .close {
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            width: 32px;
+            height: 32px;
+            opacity: 0.3;
+        }
+        .close:hover {
+            opacity: 1;
+        }
+        .close:before, .close:after {
+            position: absolute;
+            top: 0;
+            content: ' ';
+            height: 33px;
+            width: 2px;
+            background-color: #333;
+        }
+        .close:before {
+            transform: rotate(45deg);
+        }
+        .close:after {
+            transform: rotate(-45deg);
+        }
+    </style>
+    
+{% endblock %}

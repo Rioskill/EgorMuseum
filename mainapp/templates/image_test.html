@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+    <div class="parent">
+        <img src="../static/ivan.jpg" width="300" height="400" class="jpeg-main"/>
+        <input type="image" src="../static/ivan_overlay.png" id = "vandalism" width="300" height="400" class="png-over"/>
+    </div>
+
+    <script>
+        let png = document.getElementById("vandalism");
+        png.onclick = function () {
+            this.parentNode.removeChild(this);
+        }
+    </script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .top-right {
+            position: fixed;
+            top: 0px;
+            right : 0px;
+        }
+
+        .parent {
+            position: relative;
+            top: 0px;
+            left: 0px;
+        }
+
+        .jpeg-main {
+            position: relative;
+            top: 0px;
+            left: 0px;
+        }
+
+        .png-over {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+    </style>
+{% endblock %}

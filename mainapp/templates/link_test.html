@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div id="links-buttons"></div>
+
+    <br>
+    <button id = "changeBtn" class="btn btn-primary top-right">изменить</button>
+
+    <script>
+        var inEditMode = false;
+        var buttonIsActive = [];
+
+        function createLink (div, id, text, href) {
+            let link = document.createElement("a");
+            link.setAttribute("href", href);
+            link.setAttribute("target", "_blank");
+            link.setAttribute("rel", "noopener noreferrer")
+
+            link.text = text;
+            link.id = "l" + id;
+
+            let button = document.createElement("button");
+            button.innerText = text;
+            button.id = "b" + id;
+            button.classList.add("btn");
+            button.classList.add("btn-primary");
+
+            hide(button);
+
+            let span = document.createElement("span");
+            span.innerText = text;
+
+            hide(span);
+
+            div.appendChild(link);
+            div.appendChild(button);
+            div.appendChild(span);
+
+            let space = document.createTextNode(" ");
+
+            div.appendChild(space);
+        }
+
+        function hide (element) {
+            let classList = element.classList;
+            if (!classList.contains("hidden"))
+                classList.add("hidden");
+        }
+
+        function show (element) {
+            element.classList.remove("hidden");
+        }
+
+        let myDiv = document.getElementById("links-buttons");
+
+        createLink(myDiv, 1, "нож", "https://ru.wikipedia.org/wiki/%D0%9D%D0%BE%D0%B6");
+        createLink(myDiv, 2, "сковорода", "https://ru.wikipedia.org/wiki/%D0%A1%D0%BA%D0%BE%D0%B2%D0%BE%D1%80%D0%BE%D0%B4%D0%B0");
+        createLink(myDiv, 3, "стул", "https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D1%83%D0%BB");
+
+        let buttons = myDiv.getElementsByTagName("button");
+        let refs = myDiv.getElementsByTagName("a");
+        let spans = myDiv.getElementsByTagName("span");
+
+        for (let i = 0; i < buttons.length; i++) {
+            buttonIsActive.push(true);
+
+            buttons[i].onclick = function () {
+                let id = this.id[1] - 1;
+                if (buttonIsActive[id]) {
+                    this.classList.remove("btn-primary");
+                    this.classList.add("btn-dark");
+                } else {
+                    this.classList.remove("btn-dark");
+                    this.classList.add("btn-primary");
+                }
+                buttonIsActive[id] = !buttonIsActive[id];
+            }
+
+            hide(buttons[i])
+        }
+
+        let changeButton = document.getElementById("changeBtn");
+
+        changeButton.onclick = function() {
+            if (!inEditMode) {
+                for(let i = 0; i < buttons.length; i++) {
+                    hide(refs[i]);
+                    hide(spans[i]);
+                    show(buttons[i]);
+                }
+            } else {
+                for(let i = 0; i < buttons.length; i++) {
+                    hide(buttons[i]);
+
+                    if (buttonIsActive[i])
+                        show(refs[i]);
+                    else
+                        show(spans[i]);
+                }
+            }
+            inEditMode = !inEditMode;
+        };
+    </script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .top-right {
+            position: fixed;
+            top: 0px;
+            right : 0px;
+        }
+    </style>
+{% endblock %}

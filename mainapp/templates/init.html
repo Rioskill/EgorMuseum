@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <a href="{{ request.build_absolute_url }}/test/link">Ссылки</a> <br>
+    <a href="{{ request.build_absolute_url }}/test/vandalism">Вандализм</a> <br>
+    <a href="{{ request.build_absolute_url }}/test/ad">Реклама</a>
+{% endblock %}
