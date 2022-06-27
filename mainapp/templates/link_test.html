@@ -1,7 +1,30 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <div id="links-buttons"></div>
+
+    <div class="container">
+        <div class="row mt-2 mb-2">
+            <div class="col-md-4">
+                <h1>Салат</h1>
+
+            <img src="../static/salad.jpg">
+            </div>
+            <div class="col">
+                <div id="links-buttons"></div>
+            </div>
+
+        </div>
+        <div class="row mt-4">
+            <h1>Квест</h1>
+        </div>
+    </div>
+
+
+    <style>
+        div {
+            border: 1px solid black;
+        }
+    </style>
 
     <script>
         {% include 'common.js' %}

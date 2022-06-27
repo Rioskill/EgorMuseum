@@ -5,7 +5,7 @@ from mainapp.models import WordLinks
 
 
 def main_view (request):
-    return render(request, 'init.html', {})
+    return render(request, 'main.html', {})
 
 
 def link_view (request):

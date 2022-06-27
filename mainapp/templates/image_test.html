@@ -25,13 +25,7 @@
     </div>
 
     <script>
-        {% include 'common.js' %}
-
-        let png = document.getElementById("vandalism");
-        png.onclick = function () {
-            if (inEditMode)
-                this.parentNode.removeChild(this);
-        }
+        {% include 'vandalism.js' %}
 
         onEditModeEnter = function() {
             showDeleteButtons();
@@ -42,7 +36,6 @@
         }
 
         hideDeleteButtons();
-
     </script>
 
     <style>

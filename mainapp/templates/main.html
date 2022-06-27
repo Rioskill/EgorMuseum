@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="col-md-7 col-lg-4 mb-5 mb-lg-0 wow fadeIn">
+        <div class="card border-0 shadow">
+            <div class="parent">
+                <img src="../static/Egor_cropped.jpg" alt="..." class="jpeg-main">
+                <input type="image" src="../static/Egor_overlay_cropped.png" id = "vandalism" class="png-over"/>
+            </div>
+            <div class="card-body p-1-9 p-xl-5">
+                <div class="mb-4">
+                    <h3 class="h4 mb-0">Лазарев Егор</h3>
+                    <span class="text-primary">CEO &amp; Founder</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .parent {
+            position: relative;
+            top: 0px;
+            left: 0px;
+        }
+
+        .jpeg-main {
+            position: relative;
+            top: 0px;
+            left: 0px;
+        }
+
+        .png-over {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
+
+    <script>
+        {% include 'vandalism.js' %}
+
+    </script>
+
+{% endblock %}
