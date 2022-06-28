@@ -5,25 +5,23 @@ from mainapp.models import WordLinks
 
 
 def main_view (request):
-    return render(request, 'main.html', {})
+    comments = [
+        {'author': 'Какая-то девушка на английском', 'text': 'Господи, какой же он красивый!'},
+        {'author': 'Жира', 'text': 'Я хачу пиццы'},
+    ]
+
+    context = {
+        'comments': comments
+    }
+
+    return render(request, 'main.html', context)
 
 
 def link_view (request):
 
-    context = {}
-
-    # print(WordLinks.objects.values())
-
+    context = dict()
     context['words'] = list(WordLinks.objects.values())
 
-    # words = [{'word': word, 'ref': ref} for word, ref in WordLinks.objects.values()]
-
-    # context['words'] = words
-    # with open(static('links.WordLinks.objects.values()txt'), 'r') as file:
-    #     lines = file.readlines()
-    #     context['words'] = [{'word': word, 'ref': ref} for word, ref in map(lambda x: x.split(), lines)]
-
-    # print(context)
     return render(request, 'link_test.html', context)
 
 

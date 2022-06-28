@@ -1,44 +1,72 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <div class="col-md-7 col-lg-4 mb-5 mb-lg-0 wow fadeIn">
-        <div class="card border-0 shadow">
+
+    <div class="row">
+        <div class="col-md-7 col-lg-4 mb-5 mb-lg-0 p-3 mt-0">
+            <div class="card p-0 m-0">
+
+
             <div class="parent">
                 <img src="../static/Egor_cropped.jpg" alt="..." class="jpeg-main">
-                <input type="image" src="../static/Egor_overlay_cropped.png" id = "vandalism" class="png-over"/>
+    {#            <input type="image" src="../static/Egor_overlay_cropped.png" id = "vandalism" class="png-over"/>#}
             </div>
-            <div class="card-body p-1-9 p-xl-5">
-                <div class="mb-4">
+            <div class="p-1-9 p-xl-5">
+                <div class="m-2" style="text-align: center">
                     <h3 class="h4 mb-0">Лазарев Егор</h3>
                     <span class="text-primary">CEO &amp; Founder</span>
                 </div>
             </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-md p-0">
+            <div class="row m-3 card p-3">
+                <h3>Факты о Егоре или что-то другое, я хз вообще</h3>
+                <ul>
+                    <li>какой-то факт</li>
+                    <li>ещё один факт</li>
+                    <li>3 факт</li>
+                    <li>4 факт</li>
+                </ul>
+            </div>
+            <div class="row m-3 card p-3">
+                    <a href="{{ request.build_absolute_url }}/test/vandalism">Друзьяшки Егора</a>
+            </div>
+            <div class="row m-3 card p-3">
+                    <a href="{{ request.build_absolute_url }}/test/link">Летопись</a> <br>
+            </div>
+            <div class="row m-3 card p-3">
+                    <a class="disabled" href="">Хроника квеста</a> <br>
+            </div>
+
         </div>
     </div>
 
+{#    <h4 class="card-title mt-4">Комментарии</h4>#}
+    {% include 'comments.html' %}
+
     <style>
-        .parent {
-            position: relative;
-            top: 0px;
-            left: 0px;
-        }
-
-        .jpeg-main {
-            position: relative;
-            top: 0px;
-            left: 0px;
-        }
-
-        .png-over {
-            position: absolute;
-            top: 0px;
-            left: 0px;
+        .disabled {
+            color: grey;
+            pointer-events: none;
         }
     </style>
 
-    <script>
-        {% include 'vandalism.js' %}
+{% endblock %}
 
-    </script>
+{% block script %}
+    {% include 'common.js' %}
 
+    onEditModeEnter = function() {
+        showDeleteButtons();
+    }
+
+    onEditModeExit = function() {
+        hideDeleteButtons();
+    }
+
+    hideDeleteButtons();
 {% endblock %}

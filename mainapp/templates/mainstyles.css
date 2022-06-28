@@ -1,0 +1,35 @@
+/*div {*/
+/*    border: 1px solid red;*/
+/*}*/
+
+body {
+    background-color: #edeef0;
+}
+
+.card {
+    background-color: white;
+}
+
+.parent {
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.jpeg-main {
+    width: 100%;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.png-over {
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.hidden {
+    display: none;
+}

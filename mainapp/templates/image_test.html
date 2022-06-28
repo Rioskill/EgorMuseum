@@ -10,14 +10,18 @@
                 <input type="image" src="../static/ivan_overlay.png" id = "vandalism" width="300" height="400" class="png-over"/>
             </div>
         </div>
-        <div class="col-md-8 text-box">
-            <span>
-                Сюда можно(нужно) запихнуть что-нибудь смешное. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </span>
+        <div class="col-md-8 card">
+{#            <span>#}
+{#                Сюда можно(нужно) запихнуть что-нибудь смешное. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.#}
+{#            </span>#}
+            <ul id="fact-list">
+                <li><span>Факт про Ваню №1</span><input type="checkbox" class="from-check-input ml-2 hidden" checked name="1"></li>
+                <li><span>Факт про Ваню №2</span><input type="checkbox" class="from-check-input ml-2 hidden" checked name="2"></li>
+                <li><span>Факт про Ваню №3</span><input type="checkbox" class="from-check-input ml-2 hidden" checked name="3"></li>
+                <li><span>Факт про Ваню №4</span><input type="checkbox" class="from-check-input ml-2 hidden" checked name="4"></li>
+            </ul>
         </div>
     </div>
-
-    <h4 class="card-title mt-4">Комментарии</h4>
 
     {#    комментарий    #}
     {% include 'comments.html' %}
@@ -29,13 +33,54 @@
 
         onEditModeEnter = function() {
             showDeleteButtons();
+            showFactListCheckboxes();
+            showAllFacts();
         }
 
         onEditModeExit = function() {
             hideDeleteButtons();
+            hideFactListCheckboxes();
+            showCheckedFacts();
         }
 
         hideDeleteButtons();
+
+        let fact_list = document.getElementById('fact-list');
+        let fact_list_items = fact_list.getElementsByTagName('li')
+
+        let fact_list_checkboxes = []
+
+        for (let i = 0; i < fact_list_items.length; i++) {
+            fact_list_checkboxes.push(fact_list_items[i].childNodes[1])
+        }
+
+        function showFactListCheckboxes() {
+            for (let i = 0; i < fact_list_checkboxes.length; i++)
+                show(fact_list_checkboxes[i]);
+        }
+
+        function hideFactListCheckboxes() {
+            for (let i = 0; i < fact_list_checkboxes.length; i++)
+                hide(fact_list_checkboxes[i]);
+        }
+
+        function showAllFacts() {
+            for (let i = 0; i < fact_list_items.length; i++)
+                show(fact_list_items[i]);
+        }
+
+        function showCheckedFacts() {
+            for (let i = 0; i < fact_list_items.length; i++) {
+                if (fact_list_checkboxes[i].checked) {
+                    show(fact_list_items[i]);
+                } else {
+                    hide(fact_list_items[i]);
+                }
+            }
+        }
+
+        console.log(fact_list_checkboxes)
+
     </script>
 
     <style>
@@ -43,37 +88,6 @@
         .text-box {
             background-color: #e2e8f0;
             border: 1px solid beige;
-        }
-        .hidden {
-            display: none;
-        }
-
-        .top-right {
-            position: fixed;
-            top: 0px;
-            right : 0px;
-        }
-
-        .parent {
-            position: relative;
-            top: 0px;
-            left: 0px;
-        }
-
-        .jpeg-main {
-            position: relative;
-            top: 0px;
-            left: 0px;
-        }
-
-        .png-over {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-        }
-
-        .close {
-
         }
 
     </style>
