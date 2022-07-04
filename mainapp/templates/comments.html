@@ -12,41 +12,10 @@
                     <div class="comment-footer">
                         <span class="text-muted float-right">April 14, 2019</span>
                 </div>
-                <button name="close-btn" class="btn-danger btn-sm">Удалить</button>
+                <button name="close-btn" class="btn-danger btn-sm hidden">Удалить</button>
                 </div>
             </div>
 
         </div>
     {% endfor %}
 </div>
-
-<script>
-    let comments = document.getElementsByName('comment');
-    let commentContainer = document.getElementById('comment-container');
-
-    let deleteButtons = []
-
-    for(let i = 0; i < comments.length; i++) {
-        let comment = comments[i];
-        // crappy way to do it, but it works
-        let deleteButton = comment.childNodes[1].childNodes[3].childNodes[7];
-        deleteButton.onclick = function() {
-            commentContainer.removeChild(comment);
-            console.log(comments)
-        }
-        deleteButtons.push(deleteButton);
-    }
-
-    function showDeleteButtons() {
-        for(let i = 0; i < deleteButtons.length; i++) {
-            show(deleteButtons[i]);
-        }
-    }
-
-    function hideDeleteButtons() {
-        for(let i = 0; i < deleteButtons.length; i++) {
-            hide(deleteButtons[i]);
-        }
-    }
-
-</script>

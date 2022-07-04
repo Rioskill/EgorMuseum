@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.templatetags.static import static
-from mainapp.models import WordLinks
+from mainapp.models import WordLinks, Friend, FriendFact, FriendComment
+from django.http import HttpResponse
+import json
 
 
 def main_view (request):
@@ -30,14 +32,41 @@ def ad_view (request):
 
 
 def vandalism_view (request):
-    comments = [
-        {'author': 'Рандомный чел', 'text': 'Понятия не имею, кто это, но мне кажется, что ему меньше 18'},
-        {'author': 'Жира', 'text': 'Я хачу пиццы'},
-        {'author': 'Егор', 'text': 'Просто солнышко'},
-    ]
+    print('session items:', request.session.items())
+    if request.method == 'POST':
+        checkbox_id, status = request.body.decode('utf-8').split()
+        print(checkbox_id, status)
 
-    context = {
-        'comments': comments
-    }
+        if 'answers' not in request.session.keys():
+            request.session['answers'] = [True for i in range(FriendFact.objects.count())]
+        request.session['answers'][int(checkbox_id)] = (status == 'true')
 
-    return render(request, 'image_test.html', context)
+        print('session items:', request.session.items())
+
+        return HttpResponse(200)
+
+    else:
+        friends = list()
+
+        for friend in Friend.objects.values():
+            # print(friend)
+            name = friend['name']
+            facts = list(FriendFact.objects.filter(friend_id=friend['id']).values())
+            comments = list(FriendComment.objects.filter(friend_id=friend['id']).values())
+
+            # print('friend:', friend)
+
+            friends.append({'name': name, 'facts': facts, 'comments': comments,
+                            'avatar': friend['jpeg_main'],
+                            'avatar_overlay': friend['jpeg_main'].split('.')[0] + '_overlay.png'})
+
+        # print(friends)
+        # print(comments)
+
+        context = {
+            # 'comments': comments,
+            'friends': friends,
+            'checkbox_statuses': 
+        }
+
+        return render(request, 'image_test.html', context)

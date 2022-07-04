@@ -3,3 +3,5 @@ mainapp/static
 mainapp/__pycache__
 EgorProject/__pycache__
 .idea/
+mainapp/migrations
+__pycache__
