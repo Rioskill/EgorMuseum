@@ -23,6 +23,9 @@ class FriendComment(models.Model):
     text = models.CharField(max_length=300, null=True)
 
 
+class LastQuestImage(models.Model):
+    image = models.ImageField(upload_to='images')
+
 # class FriendFactAnswer(models.Model):
 #     user =
 #     fact = models.ForeignKey(to=FriendFact, on_delete=models.CASCADE)

@@ -20,22 +20,21 @@
 
         <div class="col-md p-0">
             <div class="row m-3 card p-3">
-                <h3>Факты о Егоре или что-то другое, я хз вообще</h3>
+                <h3>Факты о Егоре</h3>
                 <ul>
-                    <li>какой-то факт</li>
-                    <li>ещё один факт</li>
-                    <li>3 факт</li>
-                    <li>4 факт</li>
+                    {% for fact in facts %}
+                    <li>{{ fact }}</li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="row m-3 card p-3">
-                    <a href="{{ request.build_absolute_url }}/test/vandalism">Друзьяшки Егора</a>
+                    <a href="{{ request.build_absolute_url }}/friends">Друзьяшки Егора</a>
             </div>
 {#            <div class="row m-3 card p-3">#}
 {#                    <a href="{{ request.build_absolute_url }}/test/link">Летопись</a> <br>#}
 {#            </div>#}
             <div class="row m-3 card p-3">
-                    <a class="disabled" href="">Хроника квеста</a> <br>
+                    <a href="{{ request.build_absolute_url }}/quest">Хроника квеста</a> <br>
             </div>
 
         </div>

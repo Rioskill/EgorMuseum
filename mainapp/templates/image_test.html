@@ -8,19 +8,23 @@
         <div class="card col-md-4 mt-2">
             <div class="parent">
                 <img src="../static/{{ friend.avatar }}" width="300" height="400" class="jpeg-main"/>
-                <input type="image" src="../static/{{ friend.avatar_overlay }}" id = "vandalism" width="300" height="400" class="png-over"/>
+                <input value="" type="image" src="../static/{{ friend.avatar_overlay }}" id = "vandalism" width="300" height="400" class="png-over"/>
             </div>
         <div class="p-1-9 p-xl-5">
             <div class="m-2" style="text-align: center">
                 <h3 class="h4 mb-0">{{ friend.name }}</h3>
-{#                <span class="text-primary">CEO &amp; Founder</span>#}
             </div>
         </div>
     </div>
         <div class="col-md-8 card mt-2">
             <ul name="fact-list">
                 {% for fact in friend.facts %}
-                    <li><span>{{ fact.text }}</span><input type="checkbox" class="from-check-input ml-2 hidden" checked name="{{ fact.id }}"></li>
+                    <li {% if fact.status != 'checked' %}class="hidden"{% endif %}><span>{{ fact.fact.text }}</span><input type="checkbox" class="from-check-input ml-2 hidden"
+                                                            {% if fact.status == 'checked' %}
+                                                            checked
+                                                            {% endif %}
+                                                           name="{{ fact.fact.id }}">
+                    </li>
                 {% endfor %}
             </ul>
         </div>
@@ -35,26 +39,6 @@
     <script>
         {% include 'vandalism.js' %}
         {% include 'comments.js' %}
-
-        {#function getCookie(name) {#}
-        {#    let cookieValue = null;#}
-        {#    if (document.cookie && document.cookie !== '') {#}
-        {#        const cookies = document.cookie.split(';');#}
-        {#        for (let i = 0; i < cookies.length; i++) {#}
-        {#            const cookie = cookies[i].trim();#}
-        {#            // Does this cookie string begin with the name we want?#}
-        {#            if (cookie.substring(0, name.length + 1) === (name + '=')) {#}
-        {#                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));#}
-        {#                break;#}
-        {#            }#}
-        {#        }#}
-        {#    }#}
-        {#    return cookieValue;#}
-        {#}#}
-        {#const csrftoken = getCookie('csrftoken');#}
-
-
-        {#console.log(csrf_token);#}
 
         onEditModeEnter = function() {
             showDeleteButtons();
@@ -77,10 +61,7 @@
         for (let i = 0; i < fact_lists.length; i++) {
             let fact_list = fact_lists[i];
 
-            {#console.log(fact_list)#}
-
             let fact_list_items = fact_list.getElementsByTagName('li');
-            {#global_fact_list_items += fact_list_items;#}
 
             for (let i = 0; i < fact_list_items.length; i++) {
                 fact_list_checkboxes.push(fact_list_items[i].childNodes[1]);
@@ -89,15 +70,15 @@
         }
 
         for (let i = 0; i < fact_list_checkboxes.length; i++)
+
             fact_list_checkboxes[i].onchange = function() {
                 let xml_http = new XMLHttpRequest();
                 xml_http.open("POST", "");
 
-                xml_http.send(this.name + ' ' + this.checked);
+                xml_http.send('checkbox: ' + this.name + ' ' + this.checked);
 
                 console.log(this.name + ' ' + this.checked);
             }
-
 
         function showFactListCheckboxes() {
             for (let i = 0; i < fact_list_checkboxes.length; i++)
@@ -123,7 +104,6 @@
                 }
             }
         }
-        {#console.log(fact_list_checkboxes)#}
     </script>
 
     <style>

@@ -1,25 +1,40 @@
 {% extends 'base.html' %}
 
 {% block main %}
+
+    {% for quest in quests %}
     <div class="card">
         <div class="row m-2">
             <div class="col-md-4">
-                <h1>Салат</h1>
+                <h1>{{ quest.name }}</h1>
 
-            <img src="../static/salad.jpg" class="jpeg-main">
-            </div>
-            <div class="col m-2">
-                <div id="links-buttons"></div>
+            <img src="../static/quest/{{ quest.img }}" class="jpeg-main">
             </div>
         </div>
     </div>
+    {% endfor %}
 
       <div class="card">
         <div class="row m-2">
             <div class="col-md-4">
-                <h1>Квест</h1>
+                <h1>Я купил домен, блять</h1>
 
-            <img src="../static/salad.jpg" class="jpeg-main">
+{#            <img src="../static/salad.jpg" class="jpeg-main">#}
+
+{#                <form method="POST">#}
+{#                <input name='photo' type="file" id="last-img">#}
+{#                <button id='submit-button' type="button">Отправить</button>#}
+{#                </form>#}
+
+                {% if img_obj %}
+                    <img src="{{ img_obj.image.url }}" class="jpeg-main">
+                {% else %}
+                    <form method="post" enctype="multipart/form-data">
+                    {{ form.as_p }}
+                    <button type="submit">Отправить</button>
+                </form>
+                {% endif %}
+
             </div>
             <div class="col m-2">
 
@@ -27,93 +42,19 @@
         </div>
     </div>
 
-    <style>
-        div {
-            border: 1px solid black;
-        }
-    </style>
-
     <script>
-        {% include 'common.js' %}
-        var buttonIsActive = [];
+{#        {% include 'common.js' %}#}
+{##}
+{#        let submit_button = document.getElementById('submit-button');#}
+{#        let img_input = document.getElementById('last-img');#}
+{##}
+{#        let file = img_input.files[0];#}
+{##}
+{#        submit_button.onclick = function() {#}
+{#            console.log(file);#}
+{#        }#}
+        {#console.log(file);#}
 
-        function createLink (div, id, text, href) {
-            let link = document.createElement("a");
-            link.setAttribute("href", href);
-            link.setAttribute("target", "_blank");
-            link.setAttribute("rel", "noopener noreferrer")
-
-            link.text = text;
-            link.id = "l" + id;
-
-            let button = document.createElement("button");
-            button.innerText = text;
-            button.id = "b" + id;
-            button.classList.add("btn");
-            button.classList.add("btn-primary");
-
-            hide(button);
-
-            let span = document.createElement("span");
-            span.innerText = text;
-
-            hide(span);
-
-            div.appendChild(link);
-            div.appendChild(button);
-            div.appendChild(span);
-
-            let space = document.createTextNode(" ");
-
-            div.appendChild(space);
-        }
-
-        let myDiv = document.getElementById("links-buttons");
-
-        {% for word in words %}
-            createLink(myDiv, {{ word.id }}, "{{ word.word }}", "{{ word.href }}");
-        {% endfor %}
-
-        let buttons = myDiv.getElementsByTagName("button");
-        let refs = myDiv.getElementsByTagName("a");
-        let spans = myDiv.getElementsByTagName("span");
-
-        for (let i = 0; i < buttons.length; i++) {
-            buttonIsActive.push(true);
-
-            buttons[i].onclick = function () {
-                let id = this.id[1] - 1;
-                if (buttonIsActive[id]) {
-                    this.classList.remove("btn-primary");
-                    this.classList.add("btn-dark");
-                } else {
-                    this.classList.remove("btn-dark");
-                    this.classList.add("btn-primary");
-                }
-                buttonIsActive[id] = !buttonIsActive[id];
-            }
-
-            hide(buttons[i])
-        }
-
-        onEditModeEnter = function () {
-            for(let i = 0; i < buttons.length; i++) {
-                hide(refs[i]);
-                hide(spans[i]);
-                show(buttons[i]);
-            }
-        }
-
-        onEditModeExit = function () {
-            for(let i = 0; i < buttons.length; i++) {
-                hide(buttons[i]);
-
-                if (buttonIsActive[i])
-                    show(refs[i]);
-                else
-                    show(spans[i]);
-            }
-        }
     </script>
 
     <style>
